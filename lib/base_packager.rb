@@ -48,7 +48,7 @@ class BasePackager
     run_cmd "mkdir -p #{dependency_path}"
 
     dependencies.each do |uri|
-      run_cmd "cd #{dependency_path}; curl #{uri} -O"
+      run_cmd "cd #{dependency_path}; curl #{uri} -O -L"
     end
   end
 
