@@ -20,9 +20,10 @@ class BasePackager
 
   def package
     Dir.mktmpdir do |temp_dir|
-      copy_buildpack_contents(temp_dir)
-      download_dependencies(temp_dir) if mode == :offline
-      compress_buildpack(temp_dir)
+      self.target_path = temp_dir
+      copy_buildpack_contents
+      download_dependencies if mode == :offline
+      compress_buildpack
     end
   end
 
@@ -36,13 +37,14 @@ class BasePackager
 
   private
 
+  attr_accessor :target_path
   attr_reader :mode, :language
 
-  def copy_buildpack_contents(target_path)
+  def copy_buildpack_contents
     run_cmd "cp -r * #{target_path}"
   end
 
-  def download_dependencies(target_path)
+  def download_dependencies
     dependency_path = File.join(target_path, 'dependencies')
 
     run_cmd "mkdir -p #{dependency_path}"
@@ -65,7 +67,7 @@ class BasePackager
     system "#{cmd}"
   end
 
-  def compress_buildpack(target_path)
+  def compress_buildpack
     Zip::File.open("#{language}_buildpack.zip", Zip::File::CREATE) do |zipfile|
       Dir[File.join(target_path, '**', '**')].each do |file_path|
         relative_file_path = file_path.sub(target_path + '/', '')
