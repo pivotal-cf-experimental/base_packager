@@ -64,7 +64,8 @@ class BasePackager
 
   def run_cmd(cmd)
     puts "$ #{cmd}"
-    system "#{cmd}"
+    return_value = system "#{cmd}"
+    raise RuntimeError, "There was an error running command #{cmd}" unless return_value
   end
 
   def compress_buildpack
