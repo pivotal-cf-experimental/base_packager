@@ -1,11 +1,10 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'base_packager'
 
 Gem::Specification.new do |spec|
   spec.name          = "base_packager"
-  spec.version       = BasePackager::VERSION
+  spec.version       = "0.0.1"
   spec.authors       = ["Jordi Noguera"]
   spec.email         = ["jordi@pivotallabs.com"]
   spec.summary       = %q{Base buildpack packager}

@@ -2,8 +2,6 @@ require 'tmpdir'
 require 'zip'
 
 class BasePackager
-  VERSION = "0.0.1"
-
   EXCLUDE_FROM_BUILDPACK = [
       /\.git/,
       /\.gitignore/,
