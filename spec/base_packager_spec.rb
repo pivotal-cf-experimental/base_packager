@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'base_packager'
 
 describe BasePackager do
   subject { BasePackager.new("ruby", :online) }
